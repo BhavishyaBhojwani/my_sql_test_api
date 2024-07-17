@@ -1,12 +1,21 @@
 const mysql = require('mysql');
+const dotenv = require('dotenv');
 
-// Create a connection to the MySQL database
+// Load environment variables from .env file
+dotenv.config();
+
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'to_do_app',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection failed:', err);
+    return;
+  }
+  console.log('Connected to MySQL database');
 });
 
 module.exports = db;
-    

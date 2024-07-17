@@ -3,6 +3,10 @@ const cors = require('cors');
 const taskRoutes = require('./routes/taskRoutes');
 const bodyParser = require('body-parser');
 const db = require('./config/db');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 
@@ -14,15 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use CORS middleware
 app.use(cors());
-
-// Database connection
-db.connect(err => {
-  if (err) {
-    console.error('Database connection failed:', err);
-    return;
-  }
-  console.log('Connected to MySQL database');
-});
 
 // Use the task routes
 app.use('/api', taskRoutes);
